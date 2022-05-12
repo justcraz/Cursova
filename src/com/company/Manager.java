@@ -123,24 +123,24 @@ public class Manager {
         boolean flag = false;
 
         while (flag != true) {
-            System.out.println("Введіть c, якщо ви хочете створити рейс ");
-            System.out.println("Введіть d, якщо ви хочете відобразити всі рейси ");
-            System.out.println("Введіть g, якщо ви хочете отримати інформацію про рейс ");
-            System.out.println("Введіть b, якщо ви хочете забронювати місце ");
-            System.out.println("Введіть t, якщо ви хочете завершити програму ");
+            System.out.println("Введіть 1, якщо ви хочете створити рейс ");
+            System.out.println("Введіть 2, якщо ви хочете відобразити всі рейси ");
+            System.out.println("Введіть 3, якщо ви хочете отримати інформацію про рейс ");
+            System.out.println("Введіть 4, якщо ви хочете забронювати місце ");
+            System.out.println("Введіть 5, якщо ви хочете завершити програму ");
             input = scan1.nextLine();
             switch (input) {
-                case "c":
+                case "1":
                     M.createFlights();
                     break;
-                case "d":
+                case "2":
                     System.out.println("Введіть початок рейсу");
                     origin = scan1.nextLine();
                     System.out.println("Введіть пункт призначення рейсу");
                     destination = scan1.nextLine();
                     M.displayAvailableFlights(origin, destination);
                     break;
-                case "g":
+                case "3":
                     System.out.println("Введіть номер рейсу");
                     FN = scan2.nextInt();
                     F = M.getFlight(FN);
@@ -151,20 +151,20 @@ public class Manager {
                         System.out.println(F);
                     }
                     break;
-                case "b":
+                case "4":
                     System.out.println("Якщо пасажир не є учасником, введіть n, якщо пасажир є учасником, введіть m");
                     input = scan1.nextLine();
-                    System.out.println("Введіть вік пасажирів");
+                    System.out.println("Введіть вік пасажира");
                     age = scan2.nextInt();
                     System.out.println("Введіть ім'я пасажира");
                     name = scan1.nextLine();
                     System.out.println("Введіть номер рейсу");
                     FN = scan2.nextInt();
 
-                    if (input.equals("n") == true) {
+                    if (input.equals("1") == true) {
                         P = new NonMember(age, name);
                         M.bookSeat(FN, P);
-                    } else if (input.equals("m") == true) {
+                    } else if (input.equals("2") == true) {
                         System.out.println("Скільки років пасажир є учасником");
                         years = scan2.nextInt();
                         P = new Member(years, age, name);
@@ -172,7 +172,7 @@ public class Manager {
 
                     }
                     break;
-                case "t":
+                case "5":
                     flag = true;
                     System.out.println("Програма припинена");
                     break;

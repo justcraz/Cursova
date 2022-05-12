@@ -90,10 +90,10 @@ public class Flight {
 
     @Override
     public String toString() {
-        String one = "Flight " + flightNumber;
-        String two = "," + origin + " to " + destination;
+        String one = "Квиток " + flightNumber;
+        String two = "," + origin + " до " + destination;
         String three = "," + departureTime;
-        String four = ", original price: " + originalPrice + "$";
+        String four = ", Оригінальна ціна: " + originalPrice + "$";
         return one + two + three + four;
     }
 

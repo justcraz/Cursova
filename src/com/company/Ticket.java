@@ -20,11 +20,11 @@ public class Ticket {
 
     @Override
     public String toString() {
-        String one = passenger.getName() + ", Flight " + flight.getFlightNumber();
+        String one = passenger.getName() + ", Квиток " + flight.getFlightNumber();
         String two = ", " + flight.getOrigin() + " to " + flight.getDestination();
         String three = ", " + flight.getDepartureTime();
-        String four = ", original price: " + flight.getPrice() + "$";
-        String five = ", ticket price: " + price + "$";
+        String four = ", Оригінальна ціна: " + flight.getPrice() + "$";
+        String five = ", Ціна квитка: " + price + "$";
         return one + two + three + four + five;
     }
 
