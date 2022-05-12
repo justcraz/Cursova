@@ -23,7 +23,7 @@ public class Ticket {
         String one = passenger.getName() + ", Квиток " + flight.getFlightNumber();
         String two = ", " + flight.getOrigin() + " to " + flight.getDestination();
         String three = ", " + flight.getDepartureTime();
-        String four = ", Оригінальна ціна: " + flight.getPrice() + "$";
+        String four = ", Оригінальна ціна : " + flight.getPrice() + "$";
         String five = ", Ціна квитка: " + price + "$";
         return one + two + three + four + five;
     }
