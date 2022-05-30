@@ -1,5 +1,6 @@
 package com.company;
 
+import java.io.File;
 import java.util.*;
 import java.util.Scanner;
 
@@ -8,11 +9,12 @@ public class Manager {
 
     List<Flight> flights;
     List<Ticket> tickets;
-    public static final String PATH="flight.txt";
+    public static final String FLIGHT_PATH= "flight.txt";
+    public static final String TICKET_PATH= "ticket.txt";
 
     public Manager() {
-        flights = new ArrayList<Flight>();
-        tickets = new ArrayList<Ticket>();
+        flights = new ArrayList<>();
+        tickets = new ArrayList<>();
 
     }
 
@@ -73,10 +75,8 @@ public class Manager {
             Ticket a = new Ticket(flights.get(index), p, price);
             tickets.add(a);
             System.out.println("Ви успішно забронювали місце на рейс " + flightNumber);
-            System.out.println("Квиток: " + a);
-
-
-
+            System.out.println("Квиток: " + a.viewFormat());
+            FileWork.writeToFile(TICKET_PATH, tickets);
         } else {
             if (flag && seats == 0) {
                 System.out.println("Політ " + flightNumber + " Ви не можете забронювати квиток на цей рейс");
@@ -85,25 +85,53 @@ public class Manager {
                 System.out.println("Політ " + flightNumber + " не існує");
             }
         }
-
     }
 
-    private static Flight stringToClass(String str) {
+    private static Flight stringToClassF(String str) {
         String[] a = str.split(", ");
         return new Flight(Integer.parseInt(a[0]), a[1], a[2], a[3], Integer.parseInt(a[4]), Integer.parseInt(a[5]));
     }
 
-    private static List<Flight> convertArray(String[] str) {
+    private static List<Flight> convertArrayF(String[] str) {
         List<Flight> flights = new ArrayList<>();
         for (String word: str) {
-            flights.add(stringToClass(word));
+            flights.add(stringToClassF(word));
         }
         return flights;
     }
 
+    private static Ticket stringToClassT(String str) {
+        String[] a = str.split(", ");
+        List<Flight> flights = convertArrayF(FileWork.readFromFile(FLIGHT_PATH));  //Вибирає з файла
+        for (Flight flight:flights){
+            if (flight.getFlightNumber() == Integer.parseInt(a[0])){
+                if (Boolean.parseBoolean(a[1])){
+                    return new Ticket(flight, // all flight by number
+                            new Member(Integer.parseInt(a[2]), Integer.parseInt(a[4]), a[3]), // all ticket
+                            Float.parseFloat(a[5]), Integer.parseInt(a[6])); // price and ticket number
+                } else {
+                    return new Ticket(flight, // all flight by number
+                            new NonMember(Integer.parseInt(a[4]), a[3]), // all ticket
+                            Float.parseFloat(a[5]), Integer.parseInt(a[6])); // price and ticket number
+                }
+            }
+        }
+        return null;
+    }
+
+    private static List<Ticket> convertArrayT(String[] str) {
+        List<Ticket> tickets = new ArrayList<>();
+        for (String word: str) {
+            tickets.add(stringToClassT(word));
+        }
+        return tickets;
+    }
+
     public static void main(String[] args) {
         Manager M = new Manager();
-        M.flights = convertArray(FileWork.readFromFile(PATH));  //Вибирає з файла
+        M.flights = convertArrayF(FileWork.readFromFile(FLIGHT_PATH));  //Вибирає з файла
+        M.tickets = convertArrayT(FileWork.readFromFile(TICKET_PATH));  //Вибирає з файла
+        Ticket.count = M.tickets.size();
         Flight F;
         Passenger P;
         Scanner scan1 = new Scanner(System.in);
@@ -112,7 +140,7 @@ public class Manager {
         int FN, age, years;
         boolean flag = false;
 
-        while (flag != true) {
+        while (!flag) {
             System.out.println("Введіть 1, якщо ви хочете відобразити всі рейси ");
             System.out.println("Введіть 2, якщо ви хочете отримати інформацію про рейс ");
             System.out.println("Введіть 3, якщо ви хочете забронювати місце ");
