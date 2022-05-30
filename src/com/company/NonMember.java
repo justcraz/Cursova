@@ -15,4 +15,13 @@ public class NonMember extends Passenger {
         return p;
     }
 
+    @Override
+    public String toString() {
+        return String.format("%s, %d, %s, %d", "false", 0, getName(), getAge());
+    }
+
+    @Override
+    public String viewFormat(){
+        return String.format("%s, вік: %d, не є учасником", getName(), getAge());
+    }
 }
