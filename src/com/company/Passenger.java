@@ -18,4 +18,6 @@ public abstract class Passenger {
     }
     abstract public double applyDiscount(double p);
 
+    abstract public String viewFormat();
+
 }
