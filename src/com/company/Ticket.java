@@ -6,7 +6,7 @@ public class Ticket {
     private Passenger passenger;
     private double price;
     private int number;
-    private static int count = 0;
+    public static int count = 0;
 
     public Ticket(Flight f, Passenger pa, double pr) {
         count++;
@@ -14,18 +14,25 @@ public class Ticket {
         passenger = pa;
         price = pr;
         number = count;
-
-
     }
 
     @Override
     public String toString() {
-        String one = passenger.getName() + ", Квиток " + flight.getFlightNumber();
-        String two = ", " + flight.getOrigin() + " to " + flight.getDestination();
-        String three = ", " + flight.getDepartureTime();
-        String four = ", Оригінальна ціна : " + flight.getPrice() + "$";
-        String five = ", Ціна квитка: " + price + "$";
-        return one + two + three + four + five;
+        return String.format("%d, %s, %d, %d", getFlight().getFlightNumber(), getPassenger(), (int)getPrice(), getNumber());
+    }
+
+    public String viewFormat(){
+        return "Номер польоту: " + getFlight().getFlightNumber() + ", " +
+                "Пасажир: " + getPassenger().viewFormat() + ", " +
+                "ціна квитка: " + getPrice() + ", " +
+                "номер квитка: " + getCount();
+    }
+
+    public Ticket(Flight flight, Passenger passenger, double price, int number) {
+        this.flight = flight;
+        this.passenger = passenger;
+        this.price = price;
+        this.number = number;
     }
 
     public Flight getFlight() {
@@ -58,6 +65,4 @@ public class Ticket {
     public void setCount(int n) {
         count=n;
     }
-
-
 }
