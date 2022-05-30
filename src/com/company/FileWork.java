@@ -46,4 +46,19 @@ public class FileWork {
             }
         }
 
+    public static void writeToFile(String path, List<?> text) {
+        List<String> converted = new ArrayList<>();
+        for (Object o : text) {
+            converted.add(o.toString());
+        }
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(path, false))) {
+            for (String t: converted) {
+                writer.write(t);
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     }
